@@ -2,12 +2,16 @@ const express = require('express');
 const app = express();
 const http = require('http');
 
+const port = process.argv[2];
+const env = process.argv[3] || 'dev';
+
 app.get('/proxy', (req, res) => {
   const options = {
     host: 'api.example.com',
     path: req.url,
     headers: {
-      'Authorization': 'Bearer <TOKEN>'
+      'Authorization': 'Bearer <TOKEN>',
+      'X-Custom-Header': '<VALUE>'
     }
   };
 
@@ -27,6 +31,6 @@ app.get('/proxy', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Proxy server listening on port 3000');
+app.listen(port, () => {
+  console.log(`Running on port ${port} in ${env} environment`);
 });
