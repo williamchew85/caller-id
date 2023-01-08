@@ -5,7 +5,10 @@ const http = require('http');
 app.get('/proxy', (req, res) => {
   const options = {
     host: 'api.example.com',
-    path: req.url
+    path: req.url,
+    headers: {
+      'Authorization': 'Bearer <TOKEN>'
+    }
   };
 
   http.get(options, (apiRes) => {
